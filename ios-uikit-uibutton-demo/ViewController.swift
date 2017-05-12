@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var button: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle()
@@ -50,5 +50,33 @@ class ViewController: UIViewController {
         button.center = self.view.center
     }
 
+    /// ボタンを押下すると、プルプルする
+    ///
+    /// - Parameter sender: ボタン
+    @IBAction func didTapButton(_ sender: UIButton) {
+
+        let bounds = sender.bounds
+
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 10,
+                       options: .curveEaseInOut, animations: {
+
+            sender.bounds = CGRect(x: bounds.origin.x - 20,
+                                   y: bounds.origin.y,
+                                   width: bounds.size.width + 60,
+                                   height: bounds.size.height)
+        }) { (success:Bool) in
+            if success {
+
+                UIView.animate(withDuration: 0.5, animations: {
+                    sender.bounds = bounds
+                })
+
+            }
+        }
+
+    }
 }
 
